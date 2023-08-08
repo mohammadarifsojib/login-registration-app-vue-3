@@ -95,7 +95,7 @@ const addUser = async () => {
 <template>
   <div style="background-color: #F8F8F8;" class="h-screen flex justify-center items-center">
     <div class="container mx-auto w-8/12 lg:w-6/12 bg-white shadow-lg rounded-lg p-8 lg:p-20">
-      <h1 class="text-4xl font-bold mb-10">Sign up</h1>{{ newUser.fullName }}
+      <h1 class="text-4xl font-bold mb-10">Sign up</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 align-middle items-center">
         <form action="" class="pr-10 space-y-10">
           <div class="relative">

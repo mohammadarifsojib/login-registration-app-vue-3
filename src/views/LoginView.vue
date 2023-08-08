@@ -40,30 +40,23 @@ const login = async() => {
   }else if(password.value == ''){
     alertShow('error', 'Password is required!')
   }else{
-    try {
-    const response = await axios.get('http://localhost:3000/users', {
-      params: {
-        email: email.value,
-        password: password.value
-      }
-    });
-
-    if (response.data.length > 0) {
-      const user = response.data[0];
-      await axios.patch(`http://localhost:3000/users/${user.id}`, {
-        is_login: true
+      try {
+      const response = await axios.get('http://localhost:3000/users', {
+        params: {
+          email: email.value,
+          password: password.value
+        }
       });
-      alertShow()
-      router.push({
-        name:'dashboard',
-        query: user
-      })
-    } else {
-      alertShow('error', 'Email or password invalid!')
+
+      if (response.data.length > 0) {
+        alertShow()
+        router.push({name:'dashboard'})
+      } else {
+        alertShow('error', 'Email or password invalid!')
+      }
+    } catch (error) {
+      alertShow('error', 'Something Went Wrong!')
     }
-  } catch (error) {
-    alertShow('error', 'Something Went Wrong!')
-  }
   }
   
 }
@@ -83,7 +76,7 @@ const login = async() => {
                 <form @submit.prevent="login" class="lg:pl-10 space-y-10 order-1 md:order-2">
                     <h1 class="text-4xl font-bold mb-10">Sign In</h1>
                     <div class="relative">
-                      <input class="relative w-full pl-6 border-b border-b-gray-200 focus:outline-none focus:placeholder:text-black focus:border-b-gray-500 placeholder:text-gray-400 placeholder:text-sm" type="email" placeholder="Your Email" v-model="email">
+                      <input class="relative w-full pl-6 border-b border-b-gray-200 focus:outline-none focus:placeholder:text-black focus:border-b-gray-500 placeholder:text-gray-400 placeholder:text-sm" type="text" placeholder="Your Email" v-model="email">
                       <svg :class="iconClass()" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                         <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
                         <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>

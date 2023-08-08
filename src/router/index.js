@@ -20,14 +20,7 @@ const router = createRouter({
     {
       path:'/dashboard',
       name:'dashboard',
-      component: DashboardView,
-      props: true,
-      beforeEnter: (to, from, next) => {
-        // Retrieve the query parameters and pass them as props
-        const user = to.query;
-        to.params = user;
-        next();
-      }
+      component: DashboardView
     },
     {
       path:'/:pathMatch(.*)*',

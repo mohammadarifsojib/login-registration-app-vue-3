@@ -1,7 +1,37 @@
 <script setup>
     import {ref, reactive} from 'vue';
-    import {RouterLink} from 'vue-router'
+    import {RouterLink, useRouter} from 'vue-router'
+    import Swal from 'sweetalert2';
     const logo = ref(`/ostad.png`)
+    const router = useRouter()
+
+    const logOut = () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'bg-red-500 text-white px-4 py-2 hover:bg-red-600 transition-all mx-2',
+                cancelButton: 'bg-sky-500 text-white px-4 py-2 hover:bg-sky-600 transition-all mx-2'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Logout!',
+            cancelButtonText: 'Cancel!',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.isConfirmed) {
+               const logoutSuccess = swalWithBootstrapButtons.fire(
+                'Success!',
+                'Logout successfully!',
+                'success'
+                )
+                router.push({name:'login'})
+            }
+        })
+    }
 </script>
 
 <template>
@@ -12,7 +42,7 @@
                     <img :src="logo" class="h-8 mr-3" alt="Logo" />
                 </RouterLink>
             <div class="flex md:order-2">
-                <RouterLink :to="{name:'login'}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Logout</RouterLink>
+                <button @click="logOut" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Logout</button>
                 <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
